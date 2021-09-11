@@ -14,6 +14,12 @@ export default function TextForm(props) {
         setText(newText);
     }
 
+    const handleClearClick = ()=>{
+        // console.log("Erase button was clicked" + text);
+        let newText = '';
+        setText(newText);
+    }
+
     const handleOnChange = (event)=>{
         // console.log("On change");
         setText(event.target.value);
@@ -29,6 +35,7 @@ export default function TextForm(props) {
             </div>
             <button className="btn btn-primary mx-1" onClick={handleUpClick}>Convert to UPPERCASE</button>
             <button className="btn btn-primary mx-1" onClick={handleLoClick}>Convert to lowercase</button>
+            <button className="btn btn-danger mx-5" onClick={handleClearClick}>Erase Text</button>
         </div>
         <div className="container my-3">
             <h2>Your text summary</h2>
