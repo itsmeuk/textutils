@@ -1,9 +1,15 @@
 import './App.css';
-// import About from './components/About';
+import About from './components/About';
 import Navbar from './components/Navbar';
 import TextForm from './components/TextForm';
 import React, { useState } from 'react'
 import Alert from './components/Alert';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 
 function App() {
@@ -11,13 +17,13 @@ function App() {
   const [alert, setAlert] = useState(null)
 
   const showAlert = (message, type) => {
-      setAlert({
-        msg: message,
-        type: type
-      })
-      setTimeout(() => {
-        setAlert(null);
-      }, 3000);
+    setAlert({
+      msg: message,
+      type: type
+    })
+    setTimeout(() => {
+      setAlert(null);
+    }, 3000);
   }
 
   const toggleMode = () => {
@@ -35,15 +41,21 @@ function App() {
 
   return (
     <>
-      {/* Navbar */}
-      <Navbar title="TextUtils" aboutTab="About Text Utils" mode={mode} toggleMode={toggleMode} />
-      <Alert alert= {alert} />
+      <Router>
+        <Navbar title="TextUtils" aboutTab="About Text Utils" mode={mode} toggleMode={toggleMode} />
+        <Alert alert={alert} />
 
-      {/* TextArea */}
-      <div className="container my-3">
-        <TextForm showAlert={showAlert} heading="Enter your text here!" mode={mode} />
-        {/* <About/> */}
-      </div>
+        <div className="container my-3">
+          <Switch>
+            <Route exact path="/about">
+              <About />
+            </Route>
+            <Route exact path="/">
+              <TextForm showAlert={showAlert} heading="Enter your text here!" mode={mode} />
+            </Route>
+          </Switch>
+        </div>
+      </Router>
     </>
   );
 }
